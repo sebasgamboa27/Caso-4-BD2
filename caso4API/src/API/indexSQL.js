@@ -17,13 +17,11 @@ app.listen(3000, function () {
   console.log('SQL server API listening on port 3000!');
 });
 
-
 app.post('/getHashtagsSQL', async function (req, res) {
   await sql.connect(dbConnString);
   const level = req.body.level;
   
-  const result = await sql.query(`
-  ejemplo de query para sql server`);                
+  const result = await sql.query(`ejemplo de query para sql server`);
 
   res.send(result.recordset);
 });
