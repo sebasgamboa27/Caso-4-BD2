@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "caso4API"
+    }
+  },
+  "defaultProject": "caso4API",
+  "cli": {
+    "analytics": "7c2fac75-b92e-47d4-bf9a-64838f11a9e6"
+  }
 }
