@@ -372,3 +372,14 @@ export const Prisma = makePrismaClientClass<ClientConstructor<Prisma>>({
   endpoint: `http://localhost:4466`
 });
 export const prisma = new Prisma();
+
+async function main() {
+
+  const newUser = await prisma.createUser({ name: 'Sebas' })
+  console.log(`Created new user: ${newUser.name} (ID: ${newUser.id})`)
+
+  const allUsers = await prisma.users()
+  console.log(allUsers)
+}
+
+main().catch(e => console.error(e))

@@ -13,5 +13,5 @@ services:
         databases:
           default:
             connector: mongo
-            schema: articulos
+            #schema: articulos
             uri: 'mongodb://host.docker.internal:27017/articulos'
