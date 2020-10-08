@@ -23,6 +23,7 @@
     "@angular/router": "~9.1.12",
     "cors": "^2.8.5",
     "elasticsearch": "^16.7.1",
+    "mongodb": "^3.6.2",
     "mssql": "^6.2.3",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
