@@ -5,10 +5,6 @@ const sql = require('mssql');
 const { ESRCH } = require('constants');
 const app = express();
 
-let user = 'client';
-let password = 'publicView1234';
-let DB = 'MyDB'
-let dbConnString = `mssql://${user}:${password}@localhost/${DB}`;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -17,11 +13,46 @@ app.listen(3000, function () {
   console.log('SQL server API listening on port 3000!');
 });
 
-app.post('/getHashtagsSQL', async function (req, res) {
-  await sql.connect(dbConnString);
-  const level = req.body.level;
-  
-  const result = await sql.query(`ejemplo de query para sql server`);
+var Connection = require('tedious').Connection;
 
-  res.send(result.recordset);
-});
+var config = config = {
+  server: 'localhost',
+  options: {
+    database: "BD2CASO4"
+  },
+  authentication: {
+    type: 'default',
+    options: {
+      userName: 'SA',
+      password: '<hola1234>'
+    }
+  }
+}; 
+var connection = new Connection(config);  
+connection.on('connect', function(err) {  
+    // If no error, then good to proceed.  
+    console.log("Connected");  
+    //executeStatement();  
+});  
+
+var Request = require('tedious').Request;  
+var TYPES = require('tedious').TYPES;  
+
+function executeStatement(levelDown, levelUp) {  
+    request = new Request(`SELECT a.nombre FROM Articulos a inner join Hashtags h`, function(err) {  
+    if (err) {  
+        console.log(err);}  
+    });  
+    var result = "";  
+    request.on('row', function(columns) {  
+        columns.forEach(function(column) {  
+          if (column.value === null) {  
+            console.log('NULL');  
+          } else {  
+            result+= column.value + " ";  
+          }  
+        });  
+        console.log(result);  
+        result ="";  
+    }); 
+} 
