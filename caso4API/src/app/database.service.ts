@@ -19,4 +19,8 @@ export class DatabaseService {
     return await this.http.get<any>('http://localhost:3000/getHashtagsSQL').toPromise();
   }
 
+  async getHashtagsElastic() {
+    return await this.http.get<any>('http://localhost:3020/elastictest').toPromise();
+  }
+
 }
