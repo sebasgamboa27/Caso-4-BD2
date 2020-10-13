@@ -11,14 +11,15 @@ export class HomeComponent implements OnInit {
 
   mongoResult: Articulo[];
   SQLResult: Articulo[];
+  elasticResults: JSON[];
 
   constructor(private database: DatabaseService) { }
 
   ngOnInit(): void {
   }
 
-  elastic(){
-    this.database.getHashtagsElastic();
+  async elastic(){
+    this.elasticResults = await this.database.getHashtagsElastic();
   }
 
   async mongo(){
