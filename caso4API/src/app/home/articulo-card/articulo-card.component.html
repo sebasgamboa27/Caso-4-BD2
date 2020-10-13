@@ -8,7 +8,12 @@
       Autor: {{ articulo.Autor }}<br>
     </p>
     <p class="card-text" style="color: #170c30;">
-      Fecha: {{ articulo.Fecha }}<br>
+      <span *ngIf="isString(articulo.Fecha)">
+        Fecha: {{ articulo.Fecha}}<br>
+      </span>
+      <span *ngIf="isString(articulo.Fecha)">
+        Fecha: {{ articulo.Fecha | date:"dd/MM/yy"}}<br>
+      </span>
     </p>
     <p class="card-text" style="color: #170c30;">
       HashTags: {{ articulo.Hashtags }}<br>

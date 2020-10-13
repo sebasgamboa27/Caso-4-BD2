@@ -15,4 +15,6 @@ export class ArticuloCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isString(val): boolean { return typeof val === 'string'; }
+
 }
