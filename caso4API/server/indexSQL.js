@@ -14,6 +14,10 @@ app.listen(3000, function () {
 });
 
 var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;  
+var TYPES = require('tedious').TYPES;  
+
+const dbConnString = 'mssql://SA:<hola1234>@localhost/BD2CASO4';
 
 var config = config = {
   server: 'localhost',
@@ -30,29 +34,37 @@ var config = config = {
 }; 
 var connection = new Connection(config);  
 connection.on('connect', function(err) {  
-    // If no error, then good to proceed.  
+ 
     console.log("Connected");  
-    //executeStatement();  
-});  
+ 
+}); 
 
-var Request = require('tedious').Request;  
-var TYPES = require('tedious').TYPES;  
+app.post('/getHashtagsSQL', async function (req, res) {
+  await sql.connect(dbConnString);
+  
+  const result = await sql.query(`SELECT a.Titulo, h.Nombre FROM Articulo a inner join HashtagXArticulo ha on a.ArticuloId = ha.ArticuloId
+  inner join Hashtags h on ha.HashtagId = h.HashtagId WHERE h.Nombre = 'mujeres'`); 
+  
+  executeStatement();
 
-function executeStatement(levelDown, levelUp) {  
-    request = new Request(`SELECT a.nombre FROM Articulos a inner join Hashtags h`, function(err) {  
-    if (err) {  
-        console.log(err);}  
-    });  
-    var result = "";  
-    request.on('row', function(columns) {  
-        columns.forEach(function(column) {  
-          if (column.value === null) {  
-            console.log('NULL');  
-          } else {  
-            result+= column.value + " ";  
-          }  
-        });  
-        console.log(result);  
-        result ="";  
-    }); 
-} 
+  res.send(result.recordset);
+});
+
+function executeStatement() {
+  request = new Request(`SELECT a.Titulo, h.Nombre FROM Articulo a inner join HashtagXArticulo ha on a.ArticuloId = ha.ArticuloId
+  inner join Hashtags h on ha.HashtagId = h.HashtagId WHERE h.Nombre = 'mujeres'`, function(err, rowCount) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(rowCount + ' rows');
+    }
+  });
+
+  request.on('row', function(columns) {
+    columns.forEach(function(column) {
+      console.log(column.value);
+    });
+  });
+
+  connection.execSql(request);
+}

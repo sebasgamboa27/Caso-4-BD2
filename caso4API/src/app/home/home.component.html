@@ -1,2 +1,16 @@
 <h1>Caso 4!!!</h1>
-<button (click)="elastic()">Elastic</button>
+<button type="button" class="btn btn-warning mr-3" (click)="elastic()">Elastic</button>
+<button type="button" class="btn btn-success ml-3 mr-3" (click)="mongo()">Mongo</button>
+<button type="button" class="btn btn-danger ml-3" (click)="SQL()">SQL</button>
+
+<div class="row">
+  <div *ngFor="let articulo of mongoResult" class="col-3">
+    <app-articulo-card [articulo]="articulo"></app-articulo-card>
+  </div>
+</div>
+
+<div class="row">
+  <div *ngFor="let articulo of SQLResult" class="col-3">
+    <app-articulo-card [articulo]="articulo"></app-articulo-card>
+  </div>
+</div>

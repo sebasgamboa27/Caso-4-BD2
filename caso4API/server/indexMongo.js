@@ -13,9 +13,24 @@ app.listen(3050, function () {
   console.log('MongDB server API listening on port 3050!');
 });
 
+const schema = new mongoose.Schema({ Autor: 'string', Fecha: 'string' , Hashtags: 'Array',
+Media:'Array',NombreArticulo: 'string', Subtitulos: 'Array', Texto: 'Array', Titulos: 'Array'});
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('Connected to DB!')
   // we're connected!
 });
+
+app.use('/mongoSearch',((req, res, next) => {
+
+  const articulo = db.model('articulo', schema);
+
+  articulo.find({ 'Hashtags': 'para' }, function (err, articulo) {
+    if (err) return handleError(err);
+    console.log(articulo);
+    res.send(articulo);
+  });
+
+}))

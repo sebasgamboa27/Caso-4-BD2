@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Articulo } from 'src/interfaces/articulo';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,15 @@ export class DatabaseService {
   //Este es un ejemplo de peticion hacia el API de SQL SERVER
 
   async getHastagsSQL() {
-    return await this.http.get<any>('http://localhost:3000/getHashtagsSQL').toPromise();
+    return await this.http.post<Articulo[]>('http://localhost:3000/getHashtagsSQL',{}).toPromise();
   }
 
   async getHashtagsElastic() {
     return await this.http.get<any>('http://localhost:3020/elastictest').toPromise();
+  }
+
+  async mongoSearch() {
+    return await this.http.get<Articulo[]>('http://localhost:3050/mongoSearch').toPromise();
   }
 
 }
