@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Articulo } from 'src/interfaces/articulo';
+import { Word } from 'src/interfaces/words';
 import { DatabaseService } from '../database.service';
 
 @Component({
@@ -11,7 +12,8 @@ export class HomeComponent implements OnInit {
 
   mongoResult: Articulo[];
   SQLResult: Articulo[];
-  elasticResults: JSON[];
+  elasticResults: Word[];
+  wordsList: string[] = [];
 
   constructor(private database: DatabaseService) { }
 
@@ -21,6 +23,12 @@ export class HomeComponent implements OnInit {
   async elastic(){
     this.elasticResults = await this.database.getHashtagsElastic();
     console.log(this.elasticResults);
+    
+    this.elasticResults.forEach(res => {
+      this.wordsList.push(res._source.palabra);
+    });
+
+
   }
 
   async mongo(){

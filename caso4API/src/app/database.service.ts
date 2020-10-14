@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Articulo } from 'src/interfaces/articulo';
+import { Word } from 'src/interfaces/words';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class DatabaseService {
   }
 
   async getHashtagsElastic() {
-    return await this.http.get<any>('http://localhost:3020/elastictest').toPromise();
+    return await this.http.get<Word[]>('http://localhost:3020/elastictest').toPromise();
   }
 
   async mongoSearch() {
