@@ -21,11 +21,15 @@ exports["default"] = client;
 app.use('/elastictest',((req, res, next) => {
 
     client.search({
-        index:'listapalabras'
+        index:'listapalabras',
+        from: 0,
+        size: 294  
+
+
     },(error,response,status) =>
     {
         if(error){
-            logger.error(error)
+            console.log(error)
         }
         else
         {
@@ -34,6 +38,7 @@ app.use('/elastictest',((req, res, next) => {
             console.log("--- Hits ---");
             response.hits.hits.forEach(function(hit){
                 console.log(hit);})
+            res.send(response.hits.hits);
         }
     }
     )

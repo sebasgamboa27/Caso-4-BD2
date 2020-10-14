@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
 
   async elastic(){
     this.elasticResults = await this.database.getHashtagsElastic();
+    console.log(this.elasticResults);
   }
 
   async mongo(){
