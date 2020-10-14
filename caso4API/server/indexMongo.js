@@ -23,7 +23,7 @@ db.once('open', function() {
   // we're connected!
 });
 
-app.use('/mongoSearch',((req, res, next) => {
+app.post('/mongoSearch',((req, res, next) => {
 
   const articulo = db.model('articulo', schema);
 

@@ -26,7 +26,7 @@ export class DatabaseService {
   }
 
   async mongoSearch() {
-    return await this.http.get<Articulo[]>('http://localhost:3050/mongoSearch').toPromise();
+    return await this.http.post<Articulo[]>('http://localhost:3050/mongoSearch',{}).toPromise();
   }
 
 }
