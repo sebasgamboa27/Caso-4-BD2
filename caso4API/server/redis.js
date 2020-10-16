@@ -1,52 +1,65 @@
-const express = require('express');
-const responseTime = require('response-time')
-const axios = require('axios');
-const redis = require('redis');
+const express = require("express");
+const redis = require("redis");
+const axios = require("axios");
+const bodyParser = require("body-parser");
 
+//setup port constants
+const port_redis = process.env.PORT || 6379;
+const port = process.env.PORT || 5000;
+
+//configure redis client on port 6379
+const redis_client = redis.createClient(port_redis);
+
+//configure express server
 const app = express();
 
-// create and connect redis client to local instance.
-const client = redis.createClient();
+//Body Parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-// Print redis errors to the console
-client.on('error', (err) => {
-  console.log("Error " + err);
-});
+//Middleware Function to Check Cache
+checkCache = (req, res, next) => {
+  const { id } = req.params;
 
-// use response-time as a middleware
-app.use(responseTime());
-
-
-// create an api/search route
-app.get('/api/search', (req, res) => {
-  // Extract the query from url and trim trailing spaces
-  const query = (req.query.query).trim();
-  // Build the Wikipedia API url
-  const searchUrl = `localhost:3000/getHashtagsSQL`;
-
-  // Try fetching the result from Redis first in case we have it cached
-  return client.get(`wikipedia:${query}`, (err, result) => {
-    // If that key exist in Redis store
-    if (result) {
-      const resultJSON = JSON.parse(result);
-      return res.status(200).json(resultJSON);
-    } else { // Key does not exist in Redis store
-      // Fetch directly from Wikipedia API
-      return axios.get(searchUrl)
-        .then(response => {
-          const responseJSON = response.data;
-          // Save the Wikipedia API response in Redis store
-          client.setex(`wikipedia:${query}`, 3600, JSON.stringify({ source: 'Redis Cache', ...responseJSON, }));
-          // Send JSON response to client
-          return res.status(200).json({ source: 'Wikipedia API', ...responseJSON, });
-        })
-        .catch(err => {
-          return res.json(err);
-        });
+  redis_client.get(id, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
+    //if no match found
+    if (data != null) {
+      res.send(data);
+    } else {
+      //proceed to next middleware function
+      next();
     }
   });
+};
+
+app.post("/hashtags", checkCache, async (req, res) => {
+  try {
+    const { id } = 1;
+    const hash = req.body.hash;
+    const starShipInfo = await axios.post(
+      `http://localhost:3050/mongoSearch`,{hash,hash}
+    );
+
+    //get data from response
+    console.log(starShipInfo.data);
+    const starShipInfoData = starShipInfo.data;
+
+    //add data to Redis
+    redis_client.setex(id, 3600, JSON.stringify(starShipInfoData));
+
+    return res.json(starShipInfoData);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
 });
 
-app.listen(3150, () => {
-  console.log('Server listening on port: ', 3150);
+//app.listen(port, () => console.log(`Server running on Port ${port}`));
+
+app.listen(5000, function () {
+  console.log('Redis server API listening on port 5000!');
 });

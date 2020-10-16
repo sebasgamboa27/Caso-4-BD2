@@ -25,7 +25,9 @@ db.once('open', function() {
 
 app.post('/mongoSearch',((req, res, next) => {
 
-  const words = req.body.hash;
+  let words = req.body.hash;
+
+  //let words = ['lise','curiosidad','ciencias'];
 
   const articulo = db.model('articulo', schema);
 

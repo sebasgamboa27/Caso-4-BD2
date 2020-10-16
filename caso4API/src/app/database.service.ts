@@ -29,4 +29,8 @@ export class DatabaseService {
     return await this.http.post<Articulo[]>('http://localhost:3050/mongoSearch',{hash:hashtags}).toPromise();
   }
 
+  async redisSearch(hashtags: string[]) {
+    return await this.http.post<Articulo[]>('http://localhost:5000/hashtags',{hash:hashtags}).toPromise();
+  }
+
 }

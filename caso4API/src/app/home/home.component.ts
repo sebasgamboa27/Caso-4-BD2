@@ -47,4 +47,9 @@ export class HomeComponent implements OnInit {
     console.log(this.SQLResult);
   }
 
+  async redis(){
+    const words = ['lise','curiosidad','ciencias']
+    this.mongoResult = await this.database.redisSearch(words);
+  }
+
 }

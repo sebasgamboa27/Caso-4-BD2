@@ -8,6 +8,7 @@
     "serverSQL": "nodemon server/indexSQL.js",
     "serverElastic": "nodemon server/elastic.js",
     "serverMongo": "nodemon server/indexMongo.js",
+    "serverCache": "nodemon server/redis.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
