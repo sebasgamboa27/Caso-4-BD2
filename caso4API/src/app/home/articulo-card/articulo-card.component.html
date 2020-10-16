@@ -8,10 +8,10 @@
       Autor: {{ articulo.Autor }}<br>
     </p>
     <p class="card-text" style="color: #170c30;">
-      <span *ngIf="isString(articulo.Fecha)">
+      <span *ngIf="!isSQL">
         Fecha: {{ articulo.Fecha}}<br>
       </span>
-      <span *ngIf="isString(articulo.Fecha)">
+      <span *ngIf="isSQL">
         Fecha: {{ articulo.Fecha | date:"dd/MM/yy"}}<br>
       </span>
     </p>

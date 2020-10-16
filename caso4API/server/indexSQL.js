@@ -41,12 +41,32 @@ connection.on('connect', function(err) {
 
 app.post('/getHashtagsSQL', async function (req, res) {
   await sql.connect(dbConnString);
-  
-  const result = await sql.query(`SELECT a.NombreArticulo, a.Autor,a.Fecha, h.Nombre as Hashtags,m.LinkMedia as Media
+
+  const words = req.body.hash;
+
+  //console.log(words[0]);
+
+  let queryString = `SELECT a.NombreArticulo, a.Autor,a.Fecha, h.Nombre as Hashtags,m.LinkMedia as Media
   FROM Articulo a inner join HashtagXArticulo ha on a.ArticuloId = ha.ArticuloId
-      inner join Hashtags h on ha.HashtagId = h.HashtagId left join Media M on a.ArticuloId = M.ArticuloId WHERE h.Nombre = 'mujeres'`); 
+      inner join Hashtags h on ha.HashtagId = h.HashtagId left join Media M on a.ArticuloId = M.ArticuloId WHERE `;
   
-  executeStatement();
+  for (let i = 0; i < words.length; i++) {
+
+    if(i === words.length - 1){
+      console.log(words[i]);
+      queryString += `h.Nombre = '${words[i]}'`
+      console.log('yes');
+    }
+    else{
+      console.log(words[i]);
+      queryString += `h.Nombre = '${words[i]}' or `
+      console.log('si');
+    }
+  }
+  
+  const result = await sql.query(queryString); 
+  
+  //executeStatement();
 
   res.send(result.recordset);
 });

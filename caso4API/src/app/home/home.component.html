@@ -5,12 +5,12 @@
 
 <div class="row">
   <div *ngFor="let articulo of mongoResult" class="col-3">
-    <app-articulo-card [articulo]="articulo"></app-articulo-card>
+    <app-articulo-card [articulo]="articulo" [isSQL]="false"></app-articulo-card>
   </div>
 </div>
 
 <div class="row">
   <div *ngFor="let articulo of SQLResult" class="col-3">
-    <app-articulo-card [articulo]="articulo"></app-articulo-card>
+    <app-articulo-card [articulo]="articulo" [isSQL]="true"></app-articulo-card>
   </div>
 </div>

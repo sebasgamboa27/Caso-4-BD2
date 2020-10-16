@@ -25,9 +25,11 @@ db.once('open', function() {
 
 app.post('/mongoSearch',((req, res, next) => {
 
+  const words = req.body.hash;
+
   const articulo = db.model('articulo', schema);
 
-  articulo.find({ 'Hashtags': 'para' }, function (err, articulo) {
+  articulo.find({ 'Hashtags': {$in: words} }, function (err, articulo) {
     if (err) return handleError(err);
     console.log(articulo);
     res.send(articulo);

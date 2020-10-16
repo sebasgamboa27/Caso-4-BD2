@@ -9,12 +9,12 @@ import { Articulo } from 'src/interfaces/articulo';
 export class ArticuloCardComponent implements OnInit {
 
   @Input() articulo: Articulo;
+  @Input() isSQL: boolean;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  isString(val): boolean { return typeof val === 'string'; }
 
 }

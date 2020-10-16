@@ -32,13 +32,18 @@ export class HomeComponent implements OnInit {
   }
 
   async mongo(){
-    this.mongoResult = await this.database.mongoSearch();
+
+    //const words = this.wordsList;
+    const words = ['lise','curiosidad','ciencias']
+    this.mongoResult = await this.database.mongoSearch(words);
     debugger;
     console.log(this.mongoResult);
   }
 
   async SQL(){
-    this.SQLResult = await this.database.getHastagsSQL();
+    //const words = this.wordsList;
+    const words = ['lise','curiosidad','ciencias']
+    this.SQLResult = await this.database.getHastagsSQL(words);
     console.log(this.SQLResult);
   }
 

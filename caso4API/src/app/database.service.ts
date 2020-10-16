@@ -17,16 +17,16 @@ export class DatabaseService {
 
   //Este es un ejemplo de peticion hacia el API de SQL SERVER
 
-  async getHastagsSQL() {
-    return await this.http.post<Articulo[]>('http://localhost:3000/getHashtagsSQL',{}).toPromise();
+  async getHastagsSQL(hashtags: string[]) {
+    return await this.http.post<Articulo[]>('http://localhost:3000/getHashtagsSQL',{hash:hashtags}).toPromise();
   }
 
   async getHashtagsElastic() {
     return await this.http.get<Word[]>('http://localhost:3020/elastictest').toPromise();
   }
 
-  async mongoSearch() {
-    return await this.http.post<Articulo[]>('http://localhost:3050/mongoSearch',{}).toPromise();
+  async mongoSearch(hashtags: string[]) {
+    return await this.http.post<Articulo[]>('http://localhost:3050/mongoSearch',{hash:hashtags}).toPromise();
   }
 
 }
