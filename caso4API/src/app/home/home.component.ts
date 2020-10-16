@@ -50,6 +50,7 @@ export class HomeComponent implements OnInit {
   async redis(){
     const words = ['lise','curiosidad','ciencias']
     this.mongoResult = await this.database.redisSearch(words);
+    console.log(this.mongoResult);
   }
 
 }
