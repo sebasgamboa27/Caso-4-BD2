@@ -1,5 +1,69 @@
 <h1>Caso 4!!!</h1>
-<button type="button" class="btn btn-warning mr-3" (click)="elastic()">Elastic</button>
+<button type="button" class="btn btn-warning mr-3 mt-3" (click)="elastic()">Elastic</button>
+<div class="row mt-4 mb-4">
+  <label for="dropdownMenuButton" class="col-3">Hashtag Levels</label>
+  <div class="dropdown col-4">
+    <button class="btn btn-secondary dropdown-toggle mb-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{minLevel}}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <button class="dropdown-item" type="button" 
+      (click)="changeMinLevel(0)">0</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMinLevel(1)">1</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMinLevel(2)">2</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMinLevel(3)">3</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMinLevel(4)">4</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMinLevel(5)">5</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMinLevel(6)">6</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMinLevel(7)">7</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMinLevel(8)">8</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMinLevel(9)">9</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMinLevel(10)">10</button>
+    </div>
+  </div>
+
+  <div class="dropdown col-4">
+    <button class="btn btn-secondary dropdown-toggle mb-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{maxLevel}}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <button class="dropdown-item" type="button" 
+      (click)="changeMaxLevel(0)">0</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMaxLevel(1)">1</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMaxLevel(2)">2</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMaxLevel(3)">3</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMaxLevel(4)">4</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMaxLevel(5)">5</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMaxLevel(6)">6</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMaxLevel(7)">7</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMaxLevel(8)">8</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMaxLevel(9)">9</button>
+      <button class="dropdown-item" type="button" 
+      (click)="changeMaxLevel(10)">10</button>
+    </div>
+  </div>
+</div>
+
+
 <button type="button" class="btn btn-success ml-3 mr-3" (click)="mongo()">Mongo</button>
 <button type="button" class="btn btn-success ml-3 mr-3" (click)="redis()">Mongo with Redis</button>
 <button type="button" class="btn btn-danger ml-3" (click)="SQL()">SQL</button>

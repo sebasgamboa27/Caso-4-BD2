@@ -12,8 +12,9 @@ export class HomeComponent implements OnInit {
 
   mongoResult: Articulo[];
   SQLResult: Articulo[];
-  elasticResults: Word[];
-  wordsList: string[] = [];
+  elasticResults: string[];
+  minLevel: number = 0;
+  maxLevel: number = 10;
 
   constructor(private database: DatabaseService) { }
 
@@ -21,28 +22,22 @@ export class HomeComponent implements OnInit {
   }
 
   async elastic(){
-    this.elasticResults = await this.database.getHashtagsElastic();
+    this.elasticResults = await this.database.getHashtagsElastic(this.minLevel,this.maxLevel);
     console.log(this.elasticResults);
-    
-    this.elasticResults.forEach(res => {
-      this.wordsList.push(res._source.palabra);
-    });
-
 
   }
 
   async mongo(){
 
-    //const words = this.wordsList;
-    const words = ['lise','curiosidad','ciencias']
+    const words = this.elasticResults;
+
     this.mongoResult = await this.database.mongoSearch(words);
     debugger;
     console.log(this.mongoResult);
   }
 
   async SQL(){
-    //const words = this.wordsList;
-    const words = ['lise','curiosidad','ciencias']
+    const words = this.elasticResults;
     this.SQLResult = await this.database.getHastagsSQL(words);
     console.log(this.SQLResult);
   }
@@ -51,6 +46,14 @@ export class HomeComponent implements OnInit {
     const words = ['lise','curiosidad','ciencias']
     this.mongoResult = await this.database.redisSearch(words);
     console.log(this.mongoResult);
+  }
+
+  changeMinLevel(num: number){
+    this.minLevel = num;
+  }
+
+  changeMaxLevel(num: number){
+    this.maxLevel = num;
   }
 
 }

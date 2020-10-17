@@ -21,8 +21,8 @@ export class DatabaseService {
     return await this.http.post<Articulo[]>('http://localhost:3000/getHashtagsSQL',{hash:hashtags}).toPromise();
   }
 
-  async getHashtagsElastic() {
-    return await this.http.get<Word[]>('http://localhost:3020/elastictest').toPromise();
+  async getHashtagsElastic(levelMin: number, levelMax: number) {
+    return await this.http.post<string[]>('http://localhost:3020/elastictest',{min:levelMin,max:levelMax}).toPromise();
   }
 
   async mongoSearch(hashtags: string[]) {

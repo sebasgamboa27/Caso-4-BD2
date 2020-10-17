@@ -53,14 +53,10 @@ app.post('/getHashtagsSQL', async function (req, res) {
   for (let i = 0; i < words.length; i++) {
 
     if(i === words.length - 1){
-      console.log(words[i]);
       queryString += `h.Nombre = '${words[i]}'`
-      console.log('yes');
     }
     else{
-      console.log(words[i]);
       queryString += `h.Nombre = '${words[i]}' or `
-      console.log('si');
     }
   }
   

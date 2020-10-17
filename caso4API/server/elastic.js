@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const app = express();
 
 //Valores
-const nivel_derecha = 7;
-const nivel_izquierda = 5;
+let nivel_izquierda = 7;
+let nivel_derecha = 8;
 const NIVEL_MAX  =10;
 
 const hashtagsEscogidos = []
@@ -29,8 +29,13 @@ exports["default"] = client;
 
 app.use('/elastictest',((req, res, next) => {
 
+    nivel_izquierda = req.body.min;
+    nivel_derecha = req.body.max;
+    
+    console.log(nivel_izquierda,nivel_derecha);
+
     client.search({
-        index:'palabras_true',
+        index:'listapalabras',
         size:500,
         body: {
             "aggs":{
@@ -65,7 +70,7 @@ app.use('/elastictest',((req, res, next) => {
             //console.log(response);
             console.log("--- Hits ---");
             
-            res.send(response);
+            //res.send(response);
             const valorPorNivel = Math.round((response.aggregations.valor_maximo.value - response.aggregations.valor_minimo.value) /NIVEL_MAX);
             const minHashtags = (NIVEL_MAX - nivel_derecha)*valorPorNivel;
             const maxHashtags = (NIVEL_MAX - nivel_izquierda + 1 )*valorPorNivel;
@@ -78,6 +83,7 @@ app.use('/elastictest',((req, res, next) => {
                     hashtagsEscogidos.push(hit.key);
                 }});
             console.log(hashtagsEscogidos);
+            res.send(hashtagsEscogidos);
         }
     }
     )
