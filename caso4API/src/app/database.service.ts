@@ -30,17 +30,13 @@ export class DatabaseService {
   }
 
   async redisSearch(hashtags: string[]) {
-    return await this.http.get<Articulo[]>('http://localhost:5000/hashtags').toPromise();
+    return await this.http.post<Articulo[]>('http://localhost:5000/hashtagsSQL',{hash:hashtags}).toPromise();
   }
 
-  redisSearch2(hashtags: string[],callback: (data: any) => void) {
-    this.http.get<any>('http://localhost:5000/hashtags', {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        hash: hashtags
-      })
-    }).subscribe(callback);
+  async redisSearchMongo(hashtags: string[]) {
+    return await this.http.post<Articulo[]>('http://localhost:5000/hashtagsMongo',{hash:hashtags}).toPromise();
   }
+
 
 
 }

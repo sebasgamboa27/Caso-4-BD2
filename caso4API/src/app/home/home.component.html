@@ -65,8 +65,9 @@
 
 
 <button type="button" class="btn btn-success ml-5 mr-5" (click)="mongo()">Mongo</button>
-<button type="button" class="btn btn-success ml-5 mr-5" (click)="redis()">Mongo with Redis</button>
+<button type="button" class="btn btn-success ml-5 mr-5" (click)="redisMongo()">Mongo with Redis</button>
 <button type="button" class="btn btn-danger ml-5" (click)="SQL()">SQL</button>
+<button type="button" class="btn btn-danger ml-5 mr-5" (click)="redis()">SQL with Redis</button>
 
 <div class="row">
   <div *ngFor="let articulo of mongoResult" class="col-3">
