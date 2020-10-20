@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   async elastic(){
+    this.clearElastic();
     this.elasticResults = await this.database.getHashtagsElastic(this.minLevel,this.maxLevel);
     console.log(this.elasticResults);
 
@@ -60,6 +61,17 @@ export class HomeComponent implements OnInit {
 
   changeMaxLevel(num: number){
     this.maxLevel = num;
+  }
+
+  clearAll(){
+    this.SQLResult = [];
+    this.mongoResult = [];
+    this.elasticResults = [];
+  }
+
+  clearElastic(){
+    this.elasticResults = [];
+    console.log('funciona');
   }
 
 }
