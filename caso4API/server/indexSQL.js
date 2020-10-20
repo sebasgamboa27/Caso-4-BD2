@@ -62,15 +62,28 @@ app.post('/getHashtagsSQL', async function (req, res) {
   
   const result = await sql.query(queryString); 
   
-  //executeStatement();
+  executeStatement(words);
 
   res.send(result.recordset);
 });
 
-function executeStatement() {
-  request = new Request(`SELECT a.NombreArticulo, a.Autor,a.Fecha, h.Nombre,m.LinkMedia
+function executeStatement(words) {
+
+  let queryString = `SELECT a.NombreArticulo, a.Autor,a.Fecha, h.Nombre as Hashtags,m.LinkMedia as Media
   FROM Articulo a inner join HashtagXArticulo ha on a.ArticuloId = ha.ArticuloId
-      inner join Hashtags h on ha.HashtagId = h.HashtagId left join Media M on a.ArticuloId = M.ArticuloId WHERE h.Nombre = 'mujeres'`, function(err, rowCount) {
+      inner join Hashtags h on ha.HashtagId = h.HashtagId left join Media M on a.ArticuloId = M.ArticuloId WHERE `;
+  
+  for (let i = 0; i < words.length; i++) {
+
+    if(i === words.length - 1){
+      queryString += `h.Nombre = '${words[i]}'`
+    }
+    else{
+      queryString += `h.Nombre = '${words[i]}' or `
+    }
+  }
+    
+  request = new Request(queryString, function(err, rowCount) {
     if (err) {
       console.log(err);
     } else {
