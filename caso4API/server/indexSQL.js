@@ -62,7 +62,7 @@ app.post('/getHashtagsSQL', async function (req, res) {
   
   const result = await sql.query(queryString); 
   
-  executeStatement(words);
+  //executeStatement(words);
 
   res.send(result.recordset);
 });

@@ -10,9 +10,9 @@ import { DatabaseService } from '../database.service';
 })
 export class HomeComponent implements OnInit {
 
-  mongoResult: Articulo[];
-  SQLResult: Articulo[];
-  elasticResults: string[];
+  mongoResult: Articulo[] = [];
+  SQLResult: Articulo[] = [];
+  elasticResults: string[] = [];
   minLevel: number = 0;
   maxLevel: number = 10;
 
@@ -39,7 +39,21 @@ export class HomeComponent implements OnInit {
 
   async SQL(){
     const words = this.elasticResults;
-    this.SQLResult = await this.database.getHastagsSQL(words);
+    let res = await this.database.getHastagsSQL(words);
+    debugger;
+
+    for (let i = 0; i < res.length; i++) {
+      let isIn = true;
+      for (let j = 0; j < this.SQLResult.length; j++) {
+        if(res[i].NombreArticulo === this.SQLResult[j].NombreArticulo){
+          isIn = false;
+        }
+      }
+      
+      if(isIn){
+        this.SQLResult.push(res[i]);
+      }
+    }
     console.log(this.SQLResult);
   }
 
