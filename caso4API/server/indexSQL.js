@@ -46,7 +46,7 @@ app.post('/getHashtagsSQL', async function (req, res) {
 
   //console.log(words[0]);
 
-  let queryString = `SELECT a.NombreArticulo, a.Autor,a.Fecha, h.Nombre as Hashtags,m.LinkMedia as Media
+  let queryString = `SELECT a.NombreArticulo, a.Autor,a.Fecha,a.Titulos,a.Subtitulos,a.Texto, h.Nombre as Hashtags,m.LinkMedia as Media
   FROM Articulo a inner join HashtagXArticulo ha on a.ArticuloId = ha.ArticuloId
       inner join Hashtags h on ha.HashtagId = h.HashtagId left join Media M on a.ArticuloId = M.ArticuloId WHERE `;
   

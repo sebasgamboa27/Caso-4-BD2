@@ -4,6 +4,7 @@
     <h5 class="card-title" style="color: #170c30;">
       {{ articulo.NombreArticulo }}
     </h5>
+    
     <p class="card-text" style="color: #170c30;">
       Autor: {{ articulo.Autor }}<br>
     </p>
@@ -14,6 +15,15 @@
       <span *ngIf="isSQL">
         Fecha: {{ articulo.Fecha | date:"dd/MM/yy"}}<br>
       </span>
+    </p>
+    <p class="card-text" style="color: #170c30;">
+      Titulo: {{ articulo.Titulos }}<br>
+    </p>
+    <p class="card-text" style="color: #170c30;">
+      Subtitulo: {{ articulo.Subtitulos }}<br>
+    </p>
+    <p class="card-text" style="color: #170c30;">
+      Texto: {{ articulo.Texto }}<br>
     </p>
     <p class="card-text" style="color: #170c30;">
       HashTags: {{ articulo.Hashtags }}<br>
